@@ -11,7 +11,7 @@ type Project = {
   challenge: string;
   contributions: string[];
   technologies: string[];
-  visual: "workflow" | "experience";
+  visual: "workflow" | "experience" | "architecture" | "management";
 };
 
 const projects: Project[] = [
@@ -49,6 +49,39 @@ const projects: Project[] = [
     technologies: ["AEM", "REACT.JS", "HTL", "GRAPHQL", "REDUX", "JAVASCRIPT"],
     visual: "experience",
   },
+  {
+    number: "03",
+    category: "CONCENTRIX / FRONTEND ARCHITECTURE",
+    title: "Digital Experience Platform — Architecture",
+    summary:
+      "Leading frontend architecture and system design for large-scale React applications, with modular micro-frontends, shared state and performance-focused engineering.",
+    challenge:
+      "Designing scalable, independently deployable frontend modules while keeping application flows, integrations, performance and security maintainable at enterprise scale.",
+    contributions: [
+      "Owned frontend architecture and system design for large-scale React.js applications, defining scalable application structures, component architecture, state-management strategies, API integration patterns and technical solutions based on business requirements.",
+      "Engineered micro-frontend architecture with Redux, defining module boundaries, shared-state patterns, inter-module communication and reusable components for scalable, independently deployable frontend modules.",
+      "Led performance and scalability initiatives, identifying architectural bottlenecks in rendering, API interactions, state management and application flows to improve responsiveness, maintainability and stability.",
+      "Managed end-to-end frontend engineering: evaluated requirements, drove technical decisions, resolved complex production and security issues, and maintained alignment with enterprise standards.",
+    ],
+    technologies: ["REACT.JS", "MICRO-FRONTENDS", "REDUX", "REST APIS", "SYSTEM DESIGN", "PERFORMANCE"],
+    visual: "architecture",
+  },
+  {
+    number: "04",
+    category: "CONCENTRIX / AEM + REACT",
+    title: "Product Management Platform",
+    summary:
+      "Developing reusable AEM and React interfaces with dynamic content delivery, API integrations and enterprise-grade frontend engineering.",
+    challenge:
+      "Supporting flexible content authoring and connected React experiences while resolving AEM Forms rendering and integration issues and improving accessibility and cross-browser compatibility.",
+    contributions: [
+      "Developed and customized reusable AEM components using HTL, CSS, JavaScript, Clientlibs, Editable Templates and Experience Fragments; integrated GraphQL and REST APIs for dynamic content delivery.",
+      "Delivered React.js UI features with reusable component architecture, Redux/state management, REST API integrations and event-driven communication, while optimizing performance, accessibility and cross-browser compatibility.",
+      "Resolved complex AEM Forms UI, rendering and integration issues; used AI prompt engineering to accelerate UI development and supported enterprise delivery with GitLab, Docker and Kubernetes.",
+    ],
+    technologies: ["AEM", "HTL", "REACT.JS", "REDUX", "GRAPHQL", "REST APIS", "GITLAB", "DOCKER", "KUBERNETES"],
+    visual: "management",
+  },
 ];
 
 function ProjectVisual({ variant }: { variant: Project["visual"] }) {
@@ -61,11 +94,52 @@ function ProjectVisual({ variant }: { variant: Project["visual"] }) {
     >
       <div className="gp-work__visual-top">
         <div className="gp-work__window-dots"><i /><i /><i /></div>
-        <span>{workflow ? "enterprise / workflow" : "digital / experience"}</span>
+        <span>{variant === "workflow" ? "enterprise / workflow" : variant === "experience" ? "digital / experience" : variant === "architecture" ? "react / micro-frontends" : "aem / product management"}</span>
         <span>↗</span>
       </div>
 
-      {workflow ? (
+      {variant === "architecture" ? (
+        <div className="gp-work__architecture">
+          <div className="gp-work__arch-top">
+            <span>FRONTEND SYSTEM DESIGN</span>
+            <strong>MODULAR / SCALABLE</strong>
+          </div>
+          <div className="gp-work__arch-shell">
+            <span>APPLICATION SHELL</span>
+            <strong>React.js Experience</strong>
+          </div>
+          <div className="gp-work__arch-connector" />
+          <div className="gp-work__arch-modules">
+            <div><small>01 / MODULE</small><strong>Experience UI</strong></div>
+            <div><small>02 / MODULE</small><strong>Shared Features</strong></div>
+            <div><small>03 / MODULE</small><strong>API Layer</strong></div>
+          </div>
+          <div className="gp-work__arch-connector" />
+          <div className="gp-work__arch-state"><span>SHARED STATE</span><strong>REDUX</strong><span>REST APIs ↗</span></div>
+          <div className="gp-work__arch-footer">MICRO-FRONTENDS <span>•</span> INDEPENDENT DEPLOYMENT</div>
+        </div>
+      ) : variant === "management" ? (
+        <div className="gp-work__management">
+          <div className="gp-work__management-side">
+            <PanelsTopLeft size={18} strokeWidth={1.6} />
+            <span className="is-selected" /><span /><span /><span />
+          </div>
+          <div className="gp-work__management-main">
+            <div className="gp-work__mini-eyebrow">AEM / CONTENT WORKSPACE</div>
+            <div className="gp-work__management-heading"><strong>Product content</strong><span>AUTHOR MODE</span></div>
+            <div className="gp-work__management-hero">
+              <small>REUSABLE COMPONENT SYSTEM</small>
+              <b>Build once.<br />Deliver dynamically.</b>
+            </div>
+            <div className="gp-work__management-cards">
+              <div><span>COMPONENT</span><strong>HTL + CSS</strong></div>
+              <div><span>CONTENT API</span><strong>GRAPHQL</strong></div>
+              <div><span>REACT UI</span><strong>REDUX</strong></div>
+            </div>
+            <div className="gp-work__management-status"><span>●</span> FORMS / INTEGRATIONS <strong>CONNECTED</strong></div>
+          </div>
+        </div>
+      ) : workflow ? (
         <div className="gp-work__dashboard">
           <div className="gp-work__dashboard-sidebar">
             <Layers3 size={17} strokeWidth={1.6} />
@@ -129,7 +203,7 @@ export default function Projects() {
       <div className="gp-work__container">
         <div className="gp-work__topline">
           <span><b>03 /</b> SELECTED WORK</span>
-          <span>ENTERPRISE PROJECTS / 02</span>
+          <span>ENTERPRISE PROJECTS / {String(projects.length).padStart(2, "0")}</span>
         </div>
 
         <motion.div
@@ -169,7 +243,7 @@ export default function Projects() {
 
               <div className="gp-work__details">
                 <div className="gp-work__project-meta">
-                  <span>{project.number} / 02</span>
+                  <span>{project.number} / {String(projects.length).padStart(2, "0")}</span>
                   <span>{project.category}</span>
                 </div>
                 <h3>{project.title}</h3>

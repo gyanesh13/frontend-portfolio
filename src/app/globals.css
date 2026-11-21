@@ -5509,3 +5509,180 @@ html { scroll-padding-top: 108px; }
 @media (prefers-reduced-motion: reduce) {
   .gp-contact__inquiry-tab { transition: none; }
 }
+
+/* Concentrix: two detailed project blocks inside the existing Experience timeline */
+.gp-exp__projects {
+  display: grid;
+  gap: 14px;
+  margin-top: 34px;
+}
+.gp-exp__projects-label {
+  margin-bottom: 2px;
+}
+.gp-exp__project {
+  position: relative;
+  min-width: 0;
+  padding: 24px 25px 26px;
+  background: #111110;
+  border: 1px solid rgba(255, 255, 255, .13);
+  border-left: 2px solid #f0442e;
+  transition: border-color .25s ease, background .25s ease;
+}
+.gp-exp__project:hover {
+  border-color: rgba(240, 68, 46, .55);
+  background: #161412;
+}
+.gp-exp__project-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.gp-exp__project-number {
+  flex: 0 0 auto;
+  margin-top: 6px;
+  color: #f0442e;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  white-space: nowrap;
+}
+.gp-exp__project-heading h4 {
+  margin: 0;
+  color: #f4f2ee;
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-size: clamp(22px, 2.5vw, 31px);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -.025em;
+  text-transform: uppercase;
+}
+.gp-exp__project-highlights {
+  gap: 13px;
+}
+.gp-exp__project-highlights li {
+  color: #c9c5be;
+  font-size: 12px;
+  line-height: 1.85;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 700px) {
+  .gp-exp__projects { margin-top: 28px; }
+  .gp-exp__project { padding: 20px 17px 22px; }
+  .gp-exp__project-heading { gap: 10px; }
+  .gp-exp__project-heading h4 { font-size: clamp(21px, 6vw, 29px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gp-exp__project { transition: none; }
+}
+/* CONCENTRIX NEW PROJECT PREVIEWS — append after existing projects-additions.css */
+.gp-work__architecture,
+.gp-work__management {
+  position: relative;
+  z-index: 1;
+  height: calc(100% - 34px);
+  min-height: 275px;
+  overflow: hidden;
+  background: #181817;
+  border: 1px solid rgba(255,255,255,.14);
+  box-shadow: 0 20px 45px rgba(0,0,0,.25);
+  transition: transform .45s cubic-bezier(.2,.7,.2,1);
+}
+.gp-work__project:hover .gp-work__architecture,
+.gp-work__project:hover .gp-work__management { transform: translateY(-5px); }
+
+/* React / micro-frontend architecture diagram */
+.gp-work__architecture { display: flex; flex-direction: column; justify-content: center; gap: 9px; padding: clamp(12px, 2vw, 24px); }
+.gp-work__arch-top { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 4px; color: #a49d95; font-size: 8px; letter-spacing: .12em; }
+.gp-work__arch-top strong { color: #f0442e; font-size: 8px; }
+.gp-work__arch-shell { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 15px; background: #b53d2c; }
+.gp-work__arch-shell span { color: #ffd9d2; font-size: 8px; letter-spacing: .1em; }
+.gp-work__arch-shell strong { color: #fff5f1; font-family: var(--font-display), sans-serif; font-size: clamp(15px, 2vw, 23px); text-align: right; text-transform: uppercase; }
+.gp-work__arch-connector { width: 1px; height: 13px; margin: -2px auto; background: #f0442e; }
+.gp-work__arch-modules { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 7px; }
+.gp-work__arch-modules div { min-width: 0; min-height: 72px; display: flex; flex-direction: column; justify-content: space-between; gap: 9px; padding: 11px 9px; background: #292725; border: 1px solid rgba(255,255,255,.12); }
+.gp-work__arch-modules small { color: #f0442e; font-size: 7px; letter-spacing: .05em; }
+.gp-work__arch-modules strong { color: #f4f2ee; font-size: clamp(9px, 1.1vw, 12px); line-height: 1.2; }
+.gp-work__arch-state { display: flex; align-items: center; justify-content: space-between; gap: 9px; padding: 14px 12px; background: #24211f; border: 1px solid rgba(240,68,46,.45); }
+.gp-work__arch-state span { color: #a7a099; font-size: 8px; letter-spacing: .06em; }
+.gp-work__arch-state strong { color: #f0442e; font-family: var(--font-display), sans-serif; font-size: 21px; }
+.gp-work__arch-footer { color: #9b958e; font-size: 7px; letter-spacing: .1em; text-align: center; }
+.gp-work__arch-footer span { color: #f0442e; margin-inline: 8px; }
+
+/* AEM + React product-management interface preview */
+.gp-work__management { display: flex; }
+.gp-work__management-side { display: flex; flex: 0 0 43px; align-items: center; flex-direction: column; gap: 18px; padding: 17px 0; color: #f0442e; background: #111110; border-right: 1px solid rgba(255,255,255,.08); }
+.gp-work__management-side span { width: 12px; height: 3px; background: #57534e; }
+.gp-work__management-side .is-selected { background: #f0442e; }
+.gp-work__management-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 13px; padding: clamp(12px, 2vw, 21px); }
+.gp-work__management-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.gp-work__management-heading strong { color: #f4f2ee; font-family: var(--font-display), sans-serif; font-size: clamp(17px, 2vw, 24px); text-transform: uppercase; }
+.gp-work__management-heading span { color: #f0442e; font-size: 7px; white-space: nowrap; }
+.gp-work__management-hero { display: flex; flex-direction: column; justify-content: space-between; gap: 12px; min-height: 125px; padding: 17px; background: linear-gradient(130deg,#b7412f,#5b3028 68%,#31231f); }
+.gp-work__management-hero small { color: #ffdad3; font-size: 8px; letter-spacing: .09em; }
+.gp-work__management-hero b { color: #fff3ee; font-family: var(--font-display), sans-serif; font-size: clamp(20px, 2.7vw, 32px); line-height: .96; text-transform: uppercase; }
+.gp-work__management-cards { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 7px; }
+.gp-work__management-cards div { display: flex; flex-direction: column; justify-content: space-between; gap: 8px; min-width: 0; min-height: 58px; padding: 9px; background: #292725; border: 1px solid rgba(255,255,255,.07); }
+.gp-work__management-cards span { color: #aaa39a; font-size: 7px; }
+.gp-work__management-cards strong { color: #f4f2ee; font-size: clamp(9px, 1vw, 12px); }
+.gp-work__management-status { display: flex; align-items: center; gap: 7px; margin-top: auto; color: #a8a198; font-size: 8px; letter-spacing: .05em; }
+.gp-work__management-status span { color: #f0442e; }
+.gp-work__management-status strong { margin-left: auto; color: #f4f2ee; font-size: 8px; }
+@media (max-width: 760px) {
+  .gp-work__architecture, .gp-work__management { min-height: 270px; }
+  .gp-work__arch-shell strong { font-size: 18px; }
+  .gp-work__arch-modules strong { font-size: 10px; }
+  .gp-work__management-heading strong { font-size: 20px; }
+}
+@media (max-width: 440px) {
+  .gp-work__architecture { gap: 7px; padding: 10px; }
+  .gp-work__arch-top { font-size: 6px; }
+  .gp-work__arch-top strong { font-size: 6px; }
+  .gp-work__arch-shell { padding: 10px; }
+  .gp-work__arch-shell strong { font-size: 14px; }
+  .gp-work__arch-modules div { min-height: 62px; padding: 7px 5px; }
+  .gp-work__arch-modules small { font-size: 6px; }
+  .gp-work__arch-modules strong { font-size: 9px; }
+  .gp-work__arch-state { padding: 10px 7px; }
+  .gp-work__arch-state span { font-size: 7px; }
+  .gp-work__arch-state strong { font-size: 17px; }
+  .gp-work__management-side { flex-basis: 32px; gap: 14px; }
+  .gp-work__management-main { padding: 10px; gap: 10px; }
+  .gp-work__management-heading strong { font-size: 17px; }
+  .gp-work__management-hero { min-height: 110px; padding: 10px; }
+  .gp-work__management-hero b { font-size: 21px; }
+  .gp-work__management-cards div { padding: 6px; min-height: 50px; }
+  .gp-work__management-cards span { font-size: 6px; }
+  .gp-work__management-cards strong { font-size: 9px; }
+  .gp-work__management-status { font-size: 7px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gp-work__architecture, .gp-work__management { transition: none !important; }
+}
+/* Hero — PORTFOLIO */
+.gp-hero__headline h1 {
+  letter-spacing: -0.10em;
+}
+
+/* Hero — GYANESH PATIDAR */
+.gp-hero__intro h2 {
+  letter-spacing: -0.015em;
+}
+
+/* All large section headings */
+.gp-exp__intro h2,
+.gp-work__heading h2,
+.gp-personal__heading h2,
+.gp-skills__intro h2,
+.gp-contact__main h2,
+.gp-contact__form-intro h3 {
+  letter-spacing: -0.03em;
+}
+
+/* Project, company and skill headings */
+.gp-exp__company-row h3,
+.gp-work__details h3,
+.gp-personal__card h3,
+.gp-skills__item-heading h3 {
+  letter-spacing: -0.005em;
+}
