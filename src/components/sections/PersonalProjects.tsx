@@ -1,174 +1,189 @@
-
 "use client";
 
-import { motion } from "motion/react";
-import {
-    ArrowUpRight,
-    FileText,
-    FileStack,
-    Scissors,
-    FileDown,
-    Stethoscope,
-    CalendarDays,
-    ClipboardCheck,
-    Clock3,
-} from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
+import { ArrowRight, ArrowUpRight, FileText, Leaf } from "lucide-react";
 
+const projects = [
+  {
+    number: "01",
+    name: "PDFVAALE",
+    category: "PDF UTILITIES / WEB APP",
+    status: "LIVE PROJECT",
+    live: true,
+    url: "https://pdfvaale.vercel.app/",
+    description:
+      "An independent browser-based PDF tools project focused on making document workflows straightforward and accessible.",
+    tags: ["PDF TOOLS", "WEB APPLICATION", "FRONTEND"],
+    visual: "pdf",
+  },
+  {
+    number: "02",
+    name: "NITYA AYURVEDA",
+    category: "AYURVEDA / WEB EXPERIENCE",
+    status: "IN DEVELOPMENT",
+    live: false,
+    url: null,
+    description:
+      "An Ayurveda-focused web experience exploring thoughtful product presentation, clear content hierarchy, and a calm visual identity.",
+    tags: ["WEB EXPERIENCE", "UI DESIGN", "IN PROGRESS"],
+    visual: "nitya",
+  },
+] as const;
 
-const personalProjects = [
-    {
-        id: "pdfeditor",
-        number: "01",
-        name: "PDFEditor",
-        type: "Independent SaaS Product",
-        status: "Live Product",
-        liveUrl: "https://pdfvaale.vercel.app/",
-        description:
-            "A web-based PDF utility platform designed to simplify everyday document workflows with fast and accessible PDF tools.",
-        features: [
-            "Merge & Split PDFs",
-            "PDF Compression",
-            "PDF to Word, Excel & PPT",
-            "Passport Photo Print Layouts",
-        ],
-        technologies: ["React.js", "Vite", "Supabase", "Vercel"],
-        icon: FileText,
-    },
-    {
-        id: "nitya",
-        number: "02",
-        name: "Nitya Ayurveda & Homeopathy",
-        type: "Independent Web Application",
-        status: "In Development",
-        liveUrl: null,
-        description:
-            "A digital clinic platform built to simplify patient appointments, consultation workflows and day-to-day clinic management.",
-        features: [
-            "Clinic & Online Appointments",
-            "Doctor & Service Management",
-            "Admin Appointment Dashboard",
-            "Email Notifications",
-        ],
-        technologies: ["Next.js", "React.js", "Prisma", "Supabase", "Resend"],
-        icon: Stethoscope,
-    },
-];
+function BrowserChrome({ label }: { label: string }) {
+  return (
+    <div className="gp-personal__browser-top">
+      <span className="gp-personal__browser-dots"><i /><i /><i /></span>
+      <span className="gp-personal__browser-label">{label}</span>
+      <span className="gp-personal__browser-right">↗</span>
+    </div>
+  );
+}
 
+function PdfPreview() {
+  return (
+    <div className="gp-personal__preview gp-personal__preview--pdf" aria-hidden="true">
+      <div className="gp-personal__preview-index">01 / INDEPENDENT BUILD</div>
+      <div className="gp-personal__browser gp-personal__browser--pdf">
+        <BrowserChrome label="pdfvaale / workspace" />
+        <div className="gp-personal__pdf-app">
+          <aside className="gp-personal__pdf-sidebar">
+            <div className="gp-personal__pdf-logo"><FileText size={15} /><b>PDFVAALE</b></div>
+            <span className="gp-personal__pdf-sidebar-item is-selected">DOCUMENT TOOLS</span>
+            <span className="gp-personal__pdf-sidebar-item">CONVERT</span>
+            <span className="gp-personal__pdf-sidebar-item">ORGANIZE</span>
+            <span className="gp-personal__pdf-sidebar-item">UTILITIES</span>
+          </aside>
+          <div className="gp-personal__pdf-workspace">
+            <div className="gp-personal__pdf-eyebrow">YOUR DOCUMENT WORKSPACE</div>
+            <strong>WORK WITH PDFS.</strong>
+            <div className="gp-personal__pdf-tool-row">
+              <span>PDF</span><span>TOOLS</span><span>WORKSPACE</span>
+            </div>
+            <div className="gp-personal__pdf-paper-wrap">
+              <div className="gp-personal__pdf-paper gp-personal__pdf-paper--back">
+                <i /><i /><i />
+              </div>
+              <div className="gp-personal__pdf-paper gp-personal__pdf-paper--front">
+                <b>PDF</b><i /><i /><i /><i />
+              </div>
+              <div className="gp-personal__pdf-add">+</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span className="gp-personal__preview-caption">ILLUSTRATIVE UI / NOT A SCREENSHOT</span>
+    </div>
+  );
+}
+
+function NityaPreview() {
+  return (
+    <div className="gp-personal__preview gp-personal__preview--nitya" aria-hidden="true">
+      <div className="gp-personal__preview-index">02 / INDEPENDENT BUILD</div>
+      <div className="gp-personal__browser gp-personal__browser--nitya">
+        <BrowserChrome label="nitya ayurveda / concept" />
+        <div className="gp-personal__nitya-app">
+          <div className="gp-personal__nitya-nav">
+            <span><Leaf size={13} /> NITYA</span>
+            <span>AYURVEDA · WELLNESS</span>
+          </div>
+          <div className="gp-personal__nitya-hero">
+            <div className="gp-personal__nitya-copy">
+              <small>INSPIRED BY NATURE</small>
+              <strong>NATURE.<br />BALANCE.<br /><em>EVERY DAY.</em></strong>
+              <span>ROOTED IN WELLNESS</span>
+            </div>
+            <div className="gp-personal__nitya-art">
+              <div className="gp-personal__nitya-disc" />
+              <div className="gp-personal__nitya-stem" />
+              <i className="gp-personal__leaf gp-personal__leaf--a" />
+              <i className="gp-personal__leaf gp-personal__leaf--b" />
+              <i className="gp-personal__leaf gp-personal__leaf--c" />
+              <i className="gp-personal__leaf gp-personal__leaf--d" />
+            </div>
+          </div>
+          <div className="gp-personal__nitya-footer"><span>HERITAGE</span><span>WELLNESS</span><span>NATURE</span></div>
+        </div>
+      </div>
+      <span className="gp-personal__preview-caption">ILLUSTRATIVE CONCEPT / NOT A SCREENSHOT</span>
+    </div>
+  );
+}
 
 export default function PersonalProjects() {
-    return (
-        <section className="personal-projects-section" id="personal-projects">
-            <div className="personal-projects-container">
-                <motion.div
-                    className="personal-projects-heading"
-                    initial={{ opacity: 0, y: 24 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                >
-                    <span className="personal-projects-eyebrow">
-                        BEYOND PROFESSIONAL WORK
-                    </span>
+  const reduceMotion = useReducedMotion();
 
-                    <h2 className="personal-projects-title">
-                        Personal <span>Projects</span>
-                    </h2>
+  return (
+    <section className="gp-personal" id="personal-projects" aria-labelledby="gp-personal-title">
+      <div className="gp-personal__container">
+        <div className="gp-personal__topline">
+          <span><b>04 /</b> INDEPENDENT BUILDS</span>
+          <span>PERSONAL PROJECTS / 02</span>
+        </div>
 
-                    <p className="personal-projects-subtitle">
-                        Products I independently build, develop and bring to life —
-                        turning ideas into real-world applications.
-                    </p>
-                </motion.div>
+        <motion.div
+          className="gp-personal__heading"
+          initial={reduceMotion ? false : { opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.65 }}
+        >
+          <div>
+            <span className="gp-personal__eyebrow">BUILT BEYOND THE DAY JOB</span>
+            <h2 id="gp-personal-title">SIDE<br /><span>PROJECTS.</span></h2>
+          </div>
+          <p>
+            Independent ideas, thoughtfully designed and built — a space to
+            experiment, solve practical problems and explore new experiences.
+          </p>
+        </motion.div>
 
-                <div className="personal-projects-grid">
-                    {personalProjects.map((project, index) => {
-                        const Icon = project.icon;
+        <div className="gp-personal__grid">
+          {projects.map((project, index) => (
+            <motion.article
+              className="gp-personal__card"
+              key={project.number}
+              initial={reduceMotion ? false : { opacity: 0, y: 34 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.13 }}
+              transition={{ duration: 0.65, delay: index * 0.1 }}
+            >
+              {project.visual === "pdf" ? <PdfPreview /> : <NityaPreview />}
 
-                        return (
-                            <motion.article
-                                key={project.id}
-                                className={`personal-project-card personal-project-${project.id}`}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, amount: 0.15 }}
-                                transition={{ duration: 0.55, delay: index * 0.12 }}
-                            >
-                                <div className="personal-project-card-top">
-                                    <div className="personal-project-icon">
-                                        <Icon size={25} strokeWidth={1.7} />
-                                    </div>
-
-                                    <span className={`personal-project-status ${project.liveUrl ? "" : "status-development"
-                                        }`}>
-                                    </span>
-
-                                    <span className="personal-project-number">
-                                        {project.number}
-                                    </span>
-                                </div>
-
-                                <div className="personal-project-content">
-                                    <span className="personal-project-type">
-                                        {project.type}
-                                    </span>
-
-                                    <h3>{project.name}</h3>
-
-                                    <p className="personal-project-description">
-                                        {project.description}
-                                    </p>
-
-                                    <div className="personal-project-features">
-                                        {project.features.map((feature) => (
-                                            <span key={feature} className="personal-feature-chip">
-                                                {feature}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                <div className="personal-project-footer">
-                                    <div className="personal-project-tech">
-                                        <span className="tech-label">TECH STACK</span>
-                                        <div className="personal-tech-list">
-                                            {project.technologies.map((tech) => (
-                                                <span key={tech}>{tech}</span>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    {project.liveUrl ? (
-                                        <a
-                                            href={project.liveUrl}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="personal-project-action"
-                                        >
-                                            Live Demo
-                                            <ArrowUpRight size={17} />
-                                        </a>
-                                    ) : (
-                                        <span className="personal-project-action is-disabled">
-                                            Coming Soon
-                                            <Clock3 size={16} />
-                                        </span>
-                                    )}
-                                </div>
-                            </motion.article>
-                        );
-                    })}
+              <div className="gp-personal__card-body">
+                <div className="gp-personal__card-meta">
+                  <span>{project.number} / 02</span>
+                  <span className={project.live ? "gp-personal__status gp-personal__status--live" : "gp-personal__status"}>
+                    <i /> {project.status}
+                  </span>
                 </div>
+                <p className="gp-personal__category">{project.category}</p>
+                <h3>{project.name}</h3>
+                <p className="gp-personal__description">{project.description}</p>
+                <div className="gp-personal__tags" aria-label="Project categories">
+                  {project.tags.map((tag) => <span key={tag}>{tag}</span>)}
+                </div>
+                <div className="gp-personal__card-footer">
+                  {project.url ? (
+                    <a href={project.url} target="_blank" rel="noopener noreferrer" className="gp-personal__link">
+                      VIEW LIVE PROJECT <ArrowUpRight size={17} />
+                    </a>
+                  ) : (
+                    <span className="gp-personal__unavailable">PREVIEW NOT PUBLIC YET</span>
+                  )}
+                  <span className="gp-personal__card-number">0{index + 1}</span>
+                </div>
+              </div>
+            </motion.article>
+          ))}
+        </div>
 
-                <motion.p
-                    className="personal-projects-note"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                >
-                    Independently conceptualized, developed and maintained.
-                </motion.p>
-            </div>
-        </section>
-    );
+        <div className="gp-personal__bottomline">
+          <span>EXPERIMENT. BUILD. IMPROVE.</span>
+          <a href="#contact">HAVE AN IDEA? LET'S TALK <ArrowRight size={16} /></a>
+        </div>
+      </div>
+    </section>
+  );
 }

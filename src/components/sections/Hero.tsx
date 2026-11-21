@@ -2,134 +2,164 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 
-const technologies = [
-  "React.js",
-  "TypeScript",
-  "Next.js",
-  "Redux",
-  "Micro-frontends",
-  "Frontend Architecture",
+const stack = [
+  "REACT",
+  "TYPESCRIPT",
+  "NEXT.JS",
+  "MICRO-FRONTENDS",
+  "AEM",
 ];
 
 export default function Hero() {
+  const reduceMotion = useReducedMotion();
+
   return (
-    <section className="editorial-hero" id="home">
-      <div className="editorial-hero__texture" />
+    <section className="gp-hero" id="home">
+      <div className="gp-hero__noise" aria-hidden="true" />
 
-      <div className="editorial-hero__topline">
-        <span>
-          <i className="editorial-hero__status" />
-          SENIOR FRONTEND DEVELOPER
-        </span>
-        <span>PORTFOLIO / 2026</span>
-      </div>
+      <div className="gp-hero__container">
+        {/* TOP META */}
+        <div className="gp-hero__top">
+          <span className="gp-hero__availability">
+            <span className="gp-hero__dot" />
+            SENIOR FRONTEND DEVELOPER
+          </span>
 
-      <div className="editorial-hero__wordmark" aria-hidden="true">
-        PORTFOLIO
-      </div>
+          <span className="gp-hero__edition">
+            SELECTED WORK / 2026
+          </span>
+        </div>
 
-      <div className="editorial-hero__layout">
-        <motion.div
-          className="editorial-hero__content"
-          initial={{ opacity: 0, y: 35 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          <p className="editorial-hero__eyebrow">
-            <span>01</span> / INTRODUCTION
-          </p>
+        {/* MAIN EDITORIAL COMPOSITION */}
+        <div className="gp-hero__stage">
+          <motion.div
+            className="gp-hero__headline"
+            initial={reduceMotion ? false : {
+              opacity: 0,
+              y: 35,
+            }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.85 }}
+          >
+            <h1>PORTFOLIO<span>.</span></h1>
+          </motion.div>
 
-          <h1>
-            Engineering
-            <br />
-            digital
-            <br />
-            <span>experiences.</span>
-          </h1>
+          {/* RED GEOMETRIC BACKGROUND */}
+          <motion.div
+            className="gp-hero__accent-panel"
+            aria-hidden="true"
+            initial={reduceMotion ? false : {
+              scaleY: 0,
+            }}
+            animate={{ scaleY: 1 }}
+            transition={{
+              duration: 0.9,
+              delay: 0.2,
+            }}
+          />
 
-          <p className="editorial-hero__description">
-            I'm a Senior Frontend Developer with 5+ years of experience
-            building scalable digital products. I turn complex ideas into
-            high-performance interfaces through React, TypeScript,
-            frontend architecture and thoughtful engineering.
-          </p>
+          <div
+            className="gp-hero__circle"
+            aria-hidden="true"
+          />
 
-          <div className="editorial-hero__actions">
+          {/* PORTRAIT */}
+          <motion.div
+            className="gp-hero__portrait"
+            initial={reduceMotion ? false : {
+              opacity: 0,
+              x: 45,
+            }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{
+              duration: 1,
+              delay: 0.25,
+              ease: "easeOut",
+            }}
+          >
+            <Image
+              src="/images/profile.jpg"
+              alt="Gyanesh Patidar"
+              fill
+              priority
+              sizes="(max-width: 700px) 100vw, 52vw"
+              className="gp-hero__photo"
+            />
+
+            <div className="gp-hero__photo-overlay" />
+          </motion.div>
+
+          {/* INTRODUCTION */}
+          <motion.div
+            className="gp-hero__intro"
+            initial={reduceMotion ? false : {
+              opacity: 0,
+              y: 25,
+            }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.75,
+              delay: 0.4,
+            }}
+          >
+            <div className="gp-hero__intro-label">
+              <span>01 /</span> INTRODUCTION
+            </div>
+
+            <h2>
+              GYANESH
+              <br />
+              <span>PATIDAR.</span>
+            </h2>
+
+            <p className="gp-hero__role">
+              SENIOR FRONTEND ENGINEER
+            </p>
+
+            <p className="gp-hero__description">
+              I engineer scalable frontend systems,
+              high-performance interfaces and thoughtful
+              digital experiences with React, TypeScript
+              and modern web technologies.
+            </p>
+
             <motion.a
               href="#work"
-              className="editorial-button editorial-button--primary"
-              whileHover={{ y: -4 }}
-              whileTap={{ scale: 0.97 }}
+              className="gp-hero__cta"
+              whileHover={reduceMotion ? undefined : {
+                x: 5,
+              }}
             >
               EXPLORE MY WORK
               <ArrowUpRight size={17} />
             </motion.a>
+          </motion.div>
 
-            <motion.a
-              href="#contact"
-              className="editorial-button editorial-button--secondary"
-              whileHover={{ y: -4 }}
-              whileTap={{ scale: 0.97 }}
-            >
-              LET'S TALK
-              <ArrowDown size={16} />
-            </motion.a>
+          <div className="gp-hero__vertical-label">
+            DESIGN / DEVELOP / DELIVER
           </div>
 
-          <div className="editorial-hero__technologies">
-            {technologies.map((tech) => (
+          <div className="gp-hero__portrait-meta">
+            INDIA — 2026
+          </div>
+        </div>
+
+        {/* BOTTOM BAR */}
+        <div className="gp-hero__bottom">
+          <div className="gp-hero__stack">
+            {stack.map((tech) => (
               <span key={tech}>{tech}</span>
             ))}
           </div>
-        </motion.div>
 
-        <motion.div
-          className="editorial-hero__visual"
-          initial={{ opacity: 0, scale: 0.94, x: 30 }}
-          animate={{ opacity: 1, scale: 1, x: 0 }}
-          transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-        >
-          <div className="editorial-hero__image-frame">
-            <Image
-              src="/images/profile.jpg"
-              alt="Portrait of a frontend developer"
-              fill
-              priority
-              sizes="(max-width: 768px) 90vw, 42vw"
-              className="editorial-hero__photo"
-            />
-
-            <div className="editorial-hero__image-shade" />
-
-            <div className="editorial-hero__image-caption">
-              <span>GYANESH PATIDAR</span>
-              <span>INDIA · 2026</span>
-            </div>
-          </div>
-
-          <motion.div
-            className="editorial-hero__experience"
-            animate={{ y: [0, -8, 0] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <strong>5+</strong>
-            <span>YEARS OF<br />EXPERIENCE</span>
-          </motion.div>
-
-          <div className="editorial-hero__side-label">
-            DESIGN. ENGINEER. DELIVER.
-          </div>
-        </motion.div>
-      </div>
-
-      <div className="editorial-hero__bottom">
-        <span>REACT · ARCHITECTURE · PERFORMANCE</span>
-        <a href="#experience">
-          SCROLL TO EXPLORE <ArrowDown size={14} />
-        </a>
+          <a href="#experience" className="gp-hero__scroll">
+            SCROLL TO EXPLORE
+            <ArrowDown size={15} />
+          </a>
+        </div>
       </div>
     </section>
   );

@@ -1,252 +1,209 @@
-
 "use client";
 
-import { motion } from "motion/react";
-import {
-  ArrowUpRight,
-  Activity,
-  BarChart3,
-  Layers3,
-  PanelsTopLeft,
-  ShoppingCart,
-} from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
+import { ArrowUpRight, Layers3, PanelsTopLeft } from "lucide-react";
 
-const projects = [
+type Project = {
+  number: string;
+  category: string;
+  title: string;
+  summary: string;
+  challenge: string;
+  contributions: string[];
+  technologies: string[];
+  visual: "workflow" | "experience";
+};
+
+const projects: Project[] = [
   {
     number: "01",
-    company: "CONCENTRIX",
-    category: "ENERGY MANAGEMENT · HVAC",
-    title: "Energy Conservation Management",
-    description:
-      "Developed and enhanced energy conservation capabilities for HVAC systems, focusing on operational efficiency and energy optimization.",
+    category: "ENTERPRISE APPLICATION / ECM",
+    title: "Enterprise ECM Platform",
+    summary:
+      "Modernizing complex enterprise workflows with reusable React interfaces, micro-frontend architecture and thoughtful UI engineering.",
     challenge:
-      "Optimizing HVAC operations across different pumping configurations while translating equipment conditions into actionable energy recommendations.",
+      "Legacy screens needed a more consistent experience, improved responsiveness and smoother multi-step workflows.",
     contributions: [
-      "Enhanced ECM features for HVAC systems and chilled-water flow-rate setpoint optimization.",
-      "Worked across primary, secondary and single-loop pumping configurations.",
-      "Implemented DSL and rule-based logic using operating conditions and equipment parameters.",
-      "Built React data-driven UI components and REST API integrations for equipment configuration and energy insights.",
+      "Owned end-to-end frontend feature development.",
+      "Integrated REST APIs and managed shared state with Redux.",
+      "Delivered onboarding, booking and data-analysis interfaces.",
+      "Modernized existing screens for usability and performance.",
     ],
-    technologies: [
-      "React.js",
-      "REST APIs",
-      "DSL",
-      "Rule Engine",
-      "HVAC",
-      "Energy Optimization",
-    ],
-    icon: Activity,
+    technologies: ["REACT.JS", "REDUX", "MICRO-FRONTENDS", "REST APIS", "CSS3"],
+    visual: "workflow",
   },
   {
     number: "02",
-    company: "CONCENTRIX",
-    category: "ENTERPRISE APPLICATION · ANALYTICS",
-    title: "Business Analytics Platform",
-    description:
-      "Modernized a complex enterprise web application by transforming legacy interfaces into responsive, high-performance user experiences.",
-    challenge:
-      "Existing interfaces needed performance improvements, simpler navigation and smoother multi-step business workflows.",
-    contributions: [
-      "Modernized legacy UI screens into responsive interfaces based on client requirements.",
-      "Optimized React rendering and Redux updates to reduce unnecessary re-renders.",
-      "Developed Booking workflows and Data Analysis dashboards on a unified interface.",
-      "Integrated REST APIs with asynchronous data handling, dynamic rendering and loading/error states.",
-    ],
-    technologies: [
-      "React.js",
-      "Micro-frontends",
-      "Redux",
-      "REST APIs",
-      "JavaScript",
-      "CSS3",
-    ],
-    icon: BarChart3,
-  },
-  {
-    number: "03",
-    company: "CONCENTRIX",
-    category: "FRONTEND ARCHITECTURE · SYSTEM DESIGN",
+    category: "DIGITAL EXPERIENCE / AEM",
     title: "Digital Experience Platform",
-    description:
-      "Owned frontend architecture and engineering initiatives for large-scale React applications, focusing on modularity, scalability and maintainability.",
+    summary:
+      "Building reusable, content-driven digital experiences with Adobe Experience Manager, React and modern API integrations.",
     challenge:
-      "Building scalable application structures with clear module boundaries, shared state and reliable communication across independent frontend modules.",
+      "Creating consistent, maintainable interfaces while supporting flexible content authoring and connected application experiences.",
     contributions: [
-      "Defined scalable application structure, component architecture and state-management strategies.",
-      "Implemented Micro-frontend architecture with Redux, shared state and inter-module communication.",
-      "Designed reusable components and modular frontend capabilities.",
-      "Addressed rendering, API interaction, scalability and production-level engineering issues.",
+      "Developed AEM components using HTL, CSS and JavaScript.",
+      "Worked with Clientlibs, Editable Templates and Experience Fragments.",
+      "Integrated GraphQL and REST APIs.",
+      "Built React features with Redux state management.",
     ],
-    technologies: [
-      "React.js",
-      "Micro-frontends",
-      "Redux",
-      "Frontend System Design",
-      "REST APIs",
-      "Component Architecture",
-    ],
-    icon: Layers3,
-  },
-  {
-    number: "04",
-    company: "CONCENTRIX",
-    category: "CONTENT MANAGEMENT · AEM",
-    title: "Product Management Platform",
-    description:
-      "Developed content-driven digital experiences using Adobe Experience Manager alongside React-based application features.",
-    challenge:
-      "Delivering reusable, consistent interfaces while supporting content management, API integrations and cross-platform compatibility.",
-    contributions: [
-      "Developed AEM components using HTL, CSS, JavaScript and Client Libraries.",
-      "Worked with Editable Templates and Experience Fragments.",
-      "Integrated GraphQL and REST APIs with React UI features and Redux.",
-      "Resolved AEM Forms rendering and integration issues while improving accessibility and cross-browser compatibility.",
-    ],
-    technologies: [
-      "AEM",
-      "HTL",
-      "React.js",
-      "Redux",
-      "GraphQL",
-      "REST APIs",
-    ],
-    icon: PanelsTopLeft,
-  },
-  {
-    number: "05",
-    company: "ACCENTURE",
-    category: "WEB APPLICATIONS · E-COMMERCE",
-    title: "Hotel Management & E-Commerce",
-    description:
-      "Built and optimized scalable web application experiences using modern React technologies, reusable UI components and frontend best practices.",
-    challenge:
-      "Improving application performance, code reusability and user experience across complex web application workflows.",
-    contributions: [
-      "Developed scalable interfaces using React.js, Next.js, Redux and TypeScript.",
-      "Built reusable UI components to improve consistency and code reuse.",
-      "Optimized page loading and application performance.",
-      "Applied accessibility and cross-browser compatibility best practices.",
-    ],
-    impact: [
-      "30% improved application performance",
-      "50% higher concurrent-user capacity",
-      "45% better code reuse",
-      "30% reduced page-load time",
-    ],
-    technologies: [
-      "React.js",
-      "Next.js",
-      "TypeScript",
-      "Redux",
-      "HTML5",
-      "CSS3",
-    ],
-    icon: ShoppingCart,
+    technologies: ["AEM", "REACT.JS", "HTL", "GRAPHQL", "REDUX", "JAVASCRIPT"],
+    visual: "experience",
   },
 ];
 
-export default function Projects() {
+function ProjectVisual({ variant }: { variant: Project["visual"] }) {
+  const workflow = variant === "workflow";
+
   return (
-    <section className="content-section" id="work">
-      <div className="site-container">
+    <div
+      className={`gp-work__visual gp-work__visual--${variant}`}
+      aria-hidden="true"
+    >
+      <div className="gp-work__visual-top">
+        <div className="gp-work__window-dots"><i /><i /><i /></div>
+        <span>{workflow ? "enterprise / workflow" : "digital / experience"}</span>
+        <span>↗</span>
+      </div>
+
+      {workflow ? (
+        <div className="gp-work__dashboard">
+          <div className="gp-work__dashboard-sidebar">
+            <Layers3 size={17} strokeWidth={1.6} />
+            <span className="is-selected" />
+            <span /><span /><span />
+          </div>
+          <div className="gp-work__dashboard-main">
+            <div className="gp-work__mini-eyebrow">WORKFLOW OVERVIEW</div>
+            <div className="gp-work__dashboard-heading">
+              <strong>Enterprise workspace</strong>
+              <span>SYSTEM VIEW</span>
+            </div>
+            <div className="gp-work__metric-grid">
+              <div><small>FRONTEND</small><b>UI</b><em>↗</em></div>
+              <div><small>INTEGRATION</small><b>API</b><em>↗</em></div>
+              <div><small>ARCHITECTURE</small><b>MFE</b><em>→</em></div>
+            </div>
+            <div className="gp-work__chart">
+              <div className="gp-work__chart-label">ACTIVITY / LAST 7 DAYS</div>
+              <div className="gp-work__bars">
+                {[34, 56, 45, 72, 62, 87, 68, 95, 74, 100, 78, 89].map((h, i) => (
+                  <span key={i} style={{ height: `${h}%` }} />
+                ))}
+              </div>
+            </div>
+            <div className="gp-work__dashboard-rows"><span /><span /><span /></div>
+          </div>
+        </div>
+      ) : (
+        <div className="gp-work__cms">
+          <div className="gp-work__cms-sidebar">
+            <PanelsTopLeft size={18} strokeWidth={1.6} />
+            <span className="is-selected" />
+            <span /><span /><span /><span />
+          </div>
+          <div className="gp-work__cms-main">
+            <div className="gp-work__mini-eyebrow">CONTENT EXPERIENCE</div>
+            <strong>Build once. Publish everywhere.</strong>
+            <div className="gp-work__cms-hero">
+              <div><small>MODULAR CONTENT</small><b>Digital experiences, refined.</b></div>
+              <span>↗</span>
+            </div>
+            <div className="gp-work__cms-grid">
+              <div><i /><span /><span /></div>
+              <div><i /><span /><span /></div>
+              <div><i /><span /><span /></div>
+            </div>
+          </div>
+        </div>
+      )}
+      <span className="gp-work__visual-caption">ILLUSTRATIVE INTERFACE / NOT A PRODUCT SCREENSHOT</span>
+    </div>
+  );
+}
+
+export default function Projects() {
+  const reduceMotion = useReducedMotion();
+
+  return (
+    <section className="gp-work" id="work" aria-labelledby="gp-work-heading">
+      <div className="gp-work__container">
+        <div className="gp-work__topline">
+          <span><b>03 /</b> SELECTED WORK</span>
+          <span>ENTERPRISE PROJECTS / 02</span>
+        </div>
+
         <motion.div
-          initial={{ opacity: 0, y: 25 }}
+          className="gp-work__heading"
+          initial={reduceMotion ? false : { opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.65 }}
         >
-          <div className="section-label">PROFESSIONAL EXPERIENCE</div>
-
-          <h2 className="section-title">
-            Engineering in action.
-          </h2>
-
-          <p className="section-description">
-            Selected enterprise projects showcasing frontend architecture,
-            application modernization, performance engineering and
-            business-focused product development.
+          <div>
+            <span className="gp-work__eyebrow">ENGINEERING IN ACTION</span>
+            <h2 id="gp-work-heading">SELECTED<br /><span>WORK.</span></h2>
+          </div>
+          <p>
+            A closer look at enterprise frontend work — from complex
+            application workflows to reusable content-driven experiences.
           </p>
         </motion.div>
 
-        <div className="project-showcase">
-          {projects.map((project, index) => {
-            const Icon = project.icon;
-
-            return (
-              <motion.article
-                className="case-study-card"
-                key={project.number}
-                initial={{ opacity: 0, y: 35 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{
-                  duration: 0.6,
-                  delay: (index % 2) * 0.12,
-                }}
-                whileHover={{ y: -5 }}
-              >
-                <div className="case-study-top">
-                  <div className="case-study-icon">
-                    <Icon size={23} />
-                  </div>
-
-                  <span className="case-study-number">
-                    {project.number}
-                  </span>
+        <div className="gp-work__list">
+          {projects.map((project, index) => (
+            <motion.article
+              className={`gp-work__project ${index % 2 ? "gp-work__project--reverse" : ""}`}
+              key={project.number}
+              initial={reduceMotion ? false : { opacity: 0, y: 38 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.13 }}
+              transition={{ duration: 0.7, delay: 0.08 }}
+            >
+              <div className="gp-work__media">
+                <ProjectVisual variant={project.visual} />
+                <div className="gp-work__media-footer">
+                  <span>FIG. {project.number}</span>
+                  <span>UI / SYSTEMS / ARCHITECTURE</span>
                 </div>
+              </div>
 
-                <div className="case-study-category">
-                  {project.company} · {project.category}
+              <div className="gp-work__details">
+                <div className="gp-work__project-meta">
+                  <span>{project.number} / 02</span>
+                  <span>{project.category}</span>
                 </div>
-
                 <h3>{project.title}</h3>
+                <p className="gp-work__summary">{project.summary}</p>
 
-                <p className="case-study-description">
-                  {project.description}
-                </p>
-
-                <div className="case-study-challenge">
+                <div className="gp-work__challenge">
                   <span>THE CHALLENGE</span>
                   <p>{project.challenge}</p>
                 </div>
 
-                <div className="case-study-contribution">
+                <div className="gp-work__contributions">
                   <span>MY CONTRIBUTIONS</span>
-
                   <ul>
-                    {project.contributions.map((point) => (
-                      <li key={point}>{point}</li>
+                    {project.contributions.map((contribution) => (
+                      <li key={contribution}>{contribution}</li>
                     ))}
                   </ul>
                 </div>
 
-                {project.impact && (
-                  <div className="case-study-impact">
-                    <span>SELECTED IMPACT</span>
-
-                    <div className="impact-list">
-                      {project.impact.map((item) => (
-                        <span key={item}>{item}</span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                <div className="project-tags">
-                  {project.technologies.map((tech) => (
-                    <span className="hero-tag" key={tech}>
-                      {tech}
-                    </span>
-                  ))}
+                <div className="gp-work__tags" aria-label="Technologies used">
+                  {project.technologies.map((tech) => <span key={tech}>{tech}</span>)}
                 </div>
 
-                <a className="case-study-link" href="#contact">
-                  Discuss similar work
-                  <ArrowUpRight size={15} />
+                <a href="#contact" className="gp-work__link">
+                  DISCUSS SIMILAR WORK <ArrowUpRight size={17} />
                 </a>
-              </motion.article>
-            );
-          })}
+              </div>
+            </motion.article>
+          ))}
+        </div>
+
+        <div className="gp-work__bottomline">
+          <span>BUILT FOR SCALE. DESIGNED FOR PEOPLE.</span>
+          <span>INDEPENDENT BUILDS FOLLOW BELOW</span>
         </div>
       </div>
     </section>

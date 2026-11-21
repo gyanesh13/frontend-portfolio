@@ -1,14 +1,15 @@
-
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import {
+  ArrowRight,
+  ArrowUpRight,
   Code2,
-  Network,
   Database,
+  GitBranch,
+  Network,
   PanelsTopLeft,
   Sparkles,
-  GitBranch,
   Zap,
 } from "lucide-react";
 
@@ -17,9 +18,8 @@ const skillGroups = [
     number: "01",
     title: "Frontend Engineering",
     description:
-      "Building responsive, scalable and maintainable interfaces with modern frontend technologies.",
+      "Building responsive, scalable, and maintainable interfaces with modern frontend technologies.",
     icon: Code2,
-    featured: true,
     skills: [
       "JavaScript",
       "TypeScript",
@@ -35,7 +35,7 @@ const skillGroups = [
     number: "02",
     title: "Architecture & Performance",
     description:
-      "Designing scalable frontend systems, modular architectures and performance-focused solutions.",
+      "Designing modular frontend systems and optimizing applications for real-world performance.",
     icon: Network,
     skills: [
       "Frontend System Design",
@@ -51,7 +51,7 @@ const skillGroups = [
     number: "03",
     title: "Backend & API Integration",
     description:
-      "Working with backend technologies and integrating data-driven services into frontend applications.",
+      "Connecting interfaces to reliable services and data-driven application workflows.",
     icon: Database,
     skills: ["Node.js", "SQL", "GraphQL", "REST APIs"],
   },
@@ -59,7 +59,7 @@ const skillGroups = [
     number: "04",
     title: "Adobe Experience Manager",
     description:
-      "Developing reusable enterprise content components and dynamic digital experiences.",
+      "Creating reusable enterprise content components and flexible digital experiences.",
     icon: PanelsTopLeft,
     skills: [
       "Adobe Experience Manager",
@@ -75,125 +75,104 @@ const skillGroups = [
     number: "05",
     title: "AI-Assisted Development",
     description:
-      "Using AI-powered development tools and prompt engineering to accelerate UI development and problem-solving.",
+      "Using AI tools to accelerate implementation, exploration, and everyday problem-solving.",
     icon: Sparkles,
-    skills: [
-      "Claude",
-      "Cursor AI",
-      "GitHub Copilot",
-      "Prompt Engineering",
-    ],
+    skills: ["Claude", "Cursor AI", "GitHub Copilot", "Prompt Engineering"],
   },
   {
     number: "06",
     title: "DevOps & Developer Tools",
     description:
-      "Working with development workflows, version control and deployment infrastructure.",
+      "Working across version control, deployment workflows, and collaborative engineering tools.",
     icon: GitBranch,
-    skills: [
-      "Docker",
-      "Kubernetes",
-      "CI/CD",
-      "Git",
-      "GitLab",
-      "Rally",
-      "VS Code",
-    ],
+    skills: ["Docker", "Kubernetes", "CI/CD", "Git", "GitLab", "Rally", "VS Code"],
   },
   {
     number: "07",
     title: "Energy Management",
     description:
-      "Working on HVAC engineering workflows, energy conservation measures and data-driven optimization.",
+      "Domain experience with HVAC workflows, energy conservation measures, and optimization.",
     icon: Zap,
-    energy: true,
-    skills: [
-      "HVAC Engineering",
-      "ECM",
-      "DSL",
-      "Rule Engine",
-      "Energy Optimization",
-    ],
+    skills: ["HVAC Engineering", "ECM", "DSL", "Rule Engine", "Energy Optimization"],
   },
-];
+] as const;
 
 export default function Expertise() {
+  const reduceMotion = useReducedMotion();
+
   return (
-    <section
-      className="content-section skills-section"
-      id="expertise"
-    >
-      <div className="site-container">
-        <motion.div
-          className="skills-intro"
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="section-label">
-            MY TECH STACK
-          </div>
+    <section className="gp-skills" id="expertise" aria-labelledby="gp-skills-title">
+      <div className="gp-skills__container">
+        <div className="gp-skills__topline">
+          <span><b>05 /</b> TECHNICAL EXPERTISE</span>
+          <span>CAPABILITIES & TOOLS — 2026</span>
+        </div>
 
-          <h2 className="section-title">
-            Engineering skills.
-            <br />
-            <span className="gradient-text">
-              Built through experience.
-            </span>
-          </h2>
+        <div className="gp-skills__layout">
+          <motion.div
+            className="gp-skills__intro"
+            initial={reduceMotion ? false : { opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.65, ease: "easeOut" }}
+          >
+            <div className="gp-skills__eyebrow">WHAT I WORK WITH</div>
+            <h2 id="gp-skills-title">
+              THE<br />
+              <span>STACK.</span>
+            </h2>
+            <p className="gp-skills__intro-copy">
+              A practical toolkit shaped by building enterprise applications,
+              scalable frontend systems, and independent digital products.
+            </p>
+            <div className="gp-skills__intro-rule" aria-hidden="true">
+              <span />
+            </div>
+            <div className="gp-skills__intro-footnote">
+              <span>FRONTEND FIRST.</span>
+              <span>ENGINEERING ALWAYS.</span>
+            </div>
+          </motion.div>
 
-          <p className="section-description">
-            Technologies, engineering practices and tools
-            I work with to build scalable enterprise applications
-            and modern digital experiences.
-          </p>
-        </motion.div>
-
-        <div className="skills-grid">
-          {skillGroups.map((group, index) => {
-            const Icon = group.icon;
-
-            return (
-              <motion.article
-                key={group.number}
-                className={`skill-card ${
-                  group.featured ? "skill-card-featured" : ""
-                } ${group.energy ? "skill-card-energy" : ""}`}
-                initial={{ opacity: 0, y: 25 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{
-                  duration: 0.5,
-                  delay: (index % 3) * 0.1,
-                }}
-              >
-                <div className="skill-card-top">
-                  <div className="skill-icon">
-                    <Icon size={21} />
+          <div className="gp-skills__list" aria-label="Technology categories">
+            {skillGroups.map((group, index) => {
+              const Icon = group.icon;
+              return (
+                <motion.article
+                  className={`gp-skills__item${index === 0 ? " gp-skills__item--featured" : ""}`}
+                  key={group.number}
+                  initial={reduceMotion ? false : { opacity: 0, y: 22 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.12 }}
+                  transition={{ duration: 0.55, delay: Math.min(index * 0.06, 0.24), ease: "easeOut" }}
+                >
+                  <div className="gp-skills__item-head">
+                    <span className="gp-skills__number">{group.number}</span>
+                    <div className="gp-skills__icon" aria-hidden="true">
+                      <Icon size={21} strokeWidth={1.7} />
+                    </div>
+                    <div className="gp-skills__item-heading">
+                      <h3>{group.title}</h3>
+                      <p>{group.description}</p>
+                    </div>
+                    <ArrowUpRight className="gp-skills__item-arrow" size={18} aria-hidden="true" />
                   </div>
+                  <div className="gp-skills__tags" aria-label={`${group.title} technologies`}>
+                    {group.skills.map((skill) => (
+                      <span key={skill}>{skill}</span>
+                    ))}
+                  </div>
+                </motion.article>
+              );
+            })}
+          </div>
+        </div>
 
-                  <span className="skill-number">
-                    {group.number}
-                  </span>
-                </div>
-
-                <h3>{group.title}</h3>
-
-                <p className="skill-description">
-                  {group.description}
-                </p>
-
-                <div className="skill-list">
-                  {group.skills.map((skill) => (
-                    <span className="skill-chip" key={skill}>
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </motion.article>
-            );
-          })}
+        <div className="gp-skills__bottomline">
+          <span>BUILDING THOUGHTFUL DIGITAL EXPERIENCES.</span>
+          <a href="#contact">
+            LET'S COLLABORATE <ArrowRight size={15} aria-hidden="true" />
+          </a>
         </div>
       </div>
     </section>
